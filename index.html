@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dashboard IT Report Jan–Sep 2026 · PAC Engineering</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f1f5fb;--card:#fff;--tx:#0f1b2d;--mut:#5b6b82;--ln:#e0e8f3;--acc:#1d6fd8;--ok:#14935a;--bad:#e03145;--warn:#e8851a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1220;--card:#131d30;--tx:#e8eef8;--mut:#93a3bb;--ln:#22314b;--acc:#4a9bff;--ok:#33c887;--bad:#ff6577;--warn:#ffa24d}}
+:root[data-theme="dark"]{--bg:#0b1220;--card:#131d30;--tx:#e8eef8;--mut:#93a3bb;--ln:#22314b;--acc:#4a9bff;--ok:#33c887;--bad:#ff6577;--warn:#ffa24d}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--tx);font:14px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1200px;margin:0 auto;padding:16px}
+header{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;margin-bottom:16px}
+h1{font-size:20px;margin:0}h1 small{display:block;color:var(--mut);font-weight:500;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+h2{font-size:15px;margin:0 0 10px}
+.live{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--ln);border-radius:12px;padding:8px 14px}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--ok);animation:p 1.6s infinite}
+@keyframes p{50%{opacity:.25}}
+.clock{font-variant-numeric:tabular-nums;font-weight:700;font-size:18px}.sub{color:var(--mut);font-size:12px}
+.grid{display:grid;gap:12px;margin-bottom:12px}
+.k5{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.c2{grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr))}
+.card{background:var(--card);border:1px solid var(--ln);border-radius:14px;padding:14px;min-width:0}
+.kpi b{display:block;font-size:28px;line-height:1.1;margin:4px 0;font-variant-numeric:tabular-nums}
+.kpi span{color:var(--mut);font-size:12px}
+.bar{height:8px;background:var(--ln);border-radius:9px;overflow:hidden;display:flex}
+.bar i{display:block;height:100%}
+.row{display:grid;grid-template-columns:120px 1fr 52px;gap:8px;align-items:center;margin:7px 0;font-size:12px}
+.row em{font-style:normal;text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.lg{display:flex;flex-wrap:wrap;gap:10px;color:var(--mut);font-size:11px;margin-top:6px}
+.lg i{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:4px}
+.donut{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.donut svg{width:118px;height:118px;flex:none}
+.donut ul{margin:0;padding:0;list-style:none;flex:1;min-width:150px;font-size:12px}
+.donut li{margin:3px 0}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--ln);vertical-align:top}
+th{color:var(--mut);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.05em}
+.chip{display:inline-block;padding:2px 9px;border-radius:99px;font-size:11px;font-weight:600;white-space:nowrap;color:#fff}
+.ok{background:var(--ok)}.wn{background:var(--warn)}.bd{background:var(--bad)}.ac{background:var(--acc)}
+.chk{display:flex;gap:9px;align-items:flex-start;padding:6px 0;border-bottom:1px solid var(--ln);cursor:pointer}
+.chk input{margin-top:3px;accent-color:var(--acc)}
+.chk.d span{text-decoration:line-through;color:var(--mut)}
+.chk small{display:block;color:var(--mut)}
+.note{color:var(--mut);font-size:11px;margin-top:8px}
+.num{font-variant-numeric:tabular-nums}
+
+.ticker{overflow:hidden;white-space:nowrap;background:var(--card);border:1px solid var(--ln);border-radius:12px;margin-bottom:12px;padding:8px 0;font-size:12px;color:var(--mut)}
+.ticker div{display:inline-block;padding-left:100%;animation:tk 60s linear infinite}
+.ticker:hover div{animation-play-state:paused}
+.ticker b{color:var(--tx)}.ticker u{text-decoration:none;color:var(--acc);margin:0 14px}
+@keyframes tk{to{transform:translateX(-100%)}}
+@keyframes up{from{opacity:0;transform:translateY(14px)}}
+.card{animation:up .6s cubic-bezier(.2,.8,.2,1) both}
+.grid>.card:nth-child(2){animation-delay:.08s}.grid>.card:nth-child(3){animation-delay:.16s}.grid>.card:nth-child(4){animation-delay:.24s}.grid>.card:nth-child(5){animation-delay:.32s}
+rect.b{transform-box:fill-box;transform-origin:bottom;animation:gr 1s cubic-bezier(.2,.8,.2,1) both}
+@keyframes gr{from{transform:scaleY(0)}}
+.bar i{transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
+tr{animation:up .5s both}
+.kpi{transition:transform .25s,box-shadow .25s}.kpi:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.12)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+:root[data-accent="teal"]{--acc:#0ea5a4}:root[data-accent="purple"]{--acc:#8b5cf6}:root[data-accent="pink"]{--acc:#ec4899}
+.tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-left:auto}
+.seg{display:flex;background:var(--card);border:1px solid var(--ln);border-radius:10px;padding:3px}
+.seg button{border:0;background:none;color:var(--mut);font:600 12px inherit;font-family:inherit;padding:6px 11px;border-radius:7px;cursor:pointer}
+.seg button.on{background:var(--acc);color:#fff}
+.sw{display:flex;gap:7px;background:var(--card);border:1px solid var(--ln);border-radius:10px;padding:7px 9px}
+.sw button{width:18px;height:18px;border-radius:50%;border:2px solid transparent;cursor:pointer;padding:0;outline-offset:2px}
+.sw button.on{border-color:var(--tx)}
+body,.card,.live,.seg,.sw{transition:background .35s,color .35s,border-color .35s}
+
+:root{--acc2:#5aa2ff}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--acc2:#9bd0ff}}
+:root[data-theme="dark"]{--acc2:#9bd0ff}
+:root[data-accent="teal"]{--acc2:#5eead4}:root[data-accent="purple"]{--acc2:#c4b5fd}:root[data-accent="pink"]{--acc2:#f9a8d4}
+.donut svg{width:158px;height:158px;overflow:visible}
+.c1,.c2{transition:opacity .18s}
+.arc{cursor:pointer;transition:stroke-dasharray 1.5s cubic-bezier(.2,.8,.2,1),stroke-width .2s}
+.arc:hover{stroke-width:15}
+.dwn{animation:bl 1.4s ease-in-out infinite;filter:drop-shadow(0 0 4px var(--bad))}
+@keyframes bl{50%{opacity:.55}}
+.spin{transform-origin:60px 60px;animation:sp 3.6s linear infinite}
+.spin.slow{animation-duration:7s}.spin.rev{animation-duration:40s;animation-direction:reverse}
+@keyframes sp{to{transform:rotate(360deg)}}
+.bar i{position:relative;overflow:hidden}
+.bar i::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(255,255,255,.24) 0 6px,transparent 6px 12px);background-size:17px 17px;animation:st .9s linear infinite}
+@keyframes st{to{background-position:17px 0}}
+.bar i.z{animation:bl 1.4s ease-in-out infinite}
+.draw{stroke-dasharray:1;stroke-dashoffset:1;animation:dr 1.8s .4s cubic-bezier(.3,.7,.2,1) forwards}
+@keyframes dr{to{stroke-dashoffset:0}}
+.area{opacity:0;animation:fi 1s 1.2s forwards}.pt{opacity:0;animation:fi .4s forwards}
+@keyframes fi{to{opacity:1}}
+.ping{opacity:0;transform-box:fill-box;transform-origin:center;animation:pg 1.8s ease-out 2s infinite}
+@keyframes pg{from{transform:scale(1);opacity:.7}to{transform:scale(3.4);opacity:0}}
+.rg{display:grid;grid-template-columns:100px 1fr 76px;gap:10px;align-items:center;margin:11px 0;font-size:12px}
+.rt{position:relative;height:10px;background:var(--ln);border-radius:9px}
+.rf{position:absolute;top:0;height:100%;border-radius:9px;background:linear-gradient(90deg,var(--acc),var(--acc2));opacity:.5;transform-origin:left;animation:sx 1.1s cubic-bezier(.2,.8,.2,1) both}
+@keyframes sx{from{transform:scaleX(0)}}
+.mk{position:absolute;top:-4px;width:18px;height:18px;margin-left:-9px;border-radius:50%;background:var(--acc2);border:3px solid var(--card);box-shadow:0 0 0 2px var(--acc);animation:mk 1.3s cubic-bezier(.2,.8,.2,1) both}
+@keyframes mk{from{left:0}}
+.rg em{font-style:normal;font-weight:700;text-align:right;font-size:14px}
+.rg small{display:block;color:var(--mut);font-weight:400;font-size:10px}
+footer{color:var(--mut);font-size:11px;text-align:center;margin:18px 0 6px}
+.donut svg{cursor:grab;touch-action:pan-y;user-select:none}.donut svg:active{cursor:grabbing}
+.dd{fill:var(--ln);transition:fill .25s}.dd.on{fill:var(--acc)}.dd.dn{fill:var(--bad);fill-opacity:.4}.dd.dn.on{fill-opacity:1}
+.ring{fill:none;stroke:var(--acc);stroke-width:2;transform-origin:60px 60px;opacity:0;animation:rp 2.8s ease-out infinite}
+@keyframes rp{from{transform:scale(.75);opacity:.55}to{transform:scale(1.28);opacity:0}}
+.bar i:not(.z){background-size:200% 100%!important;animation:fw 3.2s linear infinite}
+@keyframes fw{to{background-position:-200% 0}}
+.row{transition:transform .25s}.row:hover{transform:translateX(4px)}.row:hover .bar{box-shadow:0 0 0 2px var(--acc2)}
+.flow{fill:none;stroke:#fff;stroke-opacity:.9;stroke-width:2.6;stroke-linecap:round;stroke-dasharray:12 300;opacity:0;animation:fl 3.2s linear 2.2s infinite}
+@keyframes fl{from{stroke-dashoffset:0;opacity:1}to{stroke-dashoffset:-312;opacity:1}}
+.hit{cursor:crosshair}
+.tb{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.tb span{font-size:11px;font-weight:700;padding:2px 9px;border-radius:99px;background:var(--ln)}
+.card{animation-duration:.9s;animation-timing-function:cubic-bezier(.34,1.56,.64,1)}
+.kpi{transition:transform .4s cubic-bezier(.34,1.56,.64,1),box-shadow .3s}.kpi:hover{transform:translateY(-6px) scale(1.02)}
+.bar i{transition:width 1.3s cubic-bezier(.34,1.56,.64,1)}
+.arc{transition:stroke-dasharray 1.6s cubic-bezier(.34,1.56,.64,1),stroke-width .4s cubic-bezier(.34,1.56,.64,1)}
+rect.b{animation-duration:1.1s;animation-timing-function:cubic-bezier(.34,1.56,.64,1)}
+.b{transition:filter .3s}.b.a{filter:brightness(1.45)}
+.pt{transition:r .45s cubic-bezier(.34,1.56,.64,1),stroke-width .3s}.pt.a{r:6;stroke-width:3}
+.ph{transition:transform .6s cubic-bezier(.34,1.56,.64,1)}
+.hd{display:flex;flex-wrap:wrap;align-items:center;gap:4px 14px;font-size:12px;min-height:22px;margin-bottom:4px}
+.hd .hi i{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:5px}.hd em{font-style:normal;color:var(--mut)}
+.pills{display:flex;gap:5px;margin-top:12px}.pills i{flex:1;height:8px;border-radius:9px;animation:pp .8s cubic-bezier(.34,1.56,.64,1) both;transition:transform .3s cubic-bezier(.34,1.56,.64,1)}.pills i:hover{transform:scaleY(1.9)}
+@keyframes pp{from{transform:scale(0);opacity:0}}
+.spk{display:block;margin-top:8px;overflow:visible}
+.pop{opacity:0;transform-box:fill-box;transform-origin:center;animation:po .8s cubic-bezier(.34,1.56,.64,1) 1.9s forwards}
+@keyframes po{from{opacity:0;transform:scale(0)}to{opacity:1;transform:scale(1)}}
+.chip{transition:transform .35s cubic-bezier(.34,1.56,.64,1)}tr:hover .chip{transform:scale(1.12)}
+.chk input{transition:transform .4s cubic-bezier(.34,1.56,.64,1)}.chk input:checked{transform:scale(1.3)}
+.mk{animation-duration:1.6s;animation-timing-function:cubic-bezier(.34,1.56,.64,1);transition:transform .3s cubic-bezier(.34,1.56,.64,1)}.mk:hover{transform:scale(1.35)}
+</style></head>
+<body><div class="wrap">
+<header>
+ <h1><small>PAC Engineering · Departemen IT</small>Dashboard IT Report Jan–Sep 2026</h1>
+ <div class="tools"><div class="seg" id="modes"><button data-m="auto">Otomatis</button><button data-m="light">Terang</button><button data-m="dark">Gelap</button></div><div class="sw" id="sw"><button data-a="blue" style="background:#1d6fd8" title="Biru"></button><button data-a="teal" style="background:#0ea5a4" title="Teal"></button><button data-a="purple" style="background:#8b5cf6" title="Ungu"></button><button data-a="pink" style="background:#ec4899" title="Pink"></button></div></div>
+ <div class="live"><span class="dot"></span><div><div class="clock" id="clk">--:--:--</div><div class="sub" id="dt">WIB</div></div></div>
+</header>
+<div class="ticker"><div id="tk"></div></div>
+
+<div class="grid k5" id="kpis"></div>
+
+<div class="grid c2">
+ <div class="card"><h2>ISP Head Office · MyRepublic (250 Mbps) — Sep 2026</h2>
+  <div class="donut" id="dHO"></div><p class="note">Seret donat untuk memutar · titik = status harian (30 hari)</p></div>
+ <div class="card"><h2>ISP Workshop · IndiHome (100 Mbps) — Sep 2026</h2>
+  <div class="donut" id="dWS"></div><p class="note">Seret donat untuk memutar · titik = status harian (30 hari)</p></div>
+</div>
+
+<div class="grid c2">
+ <div class="card"><h2>Ketersediaan jaringan Q3 · Head Office</h2><div id="ispHO"></div>
+  <p class="note">Rekomendasi: koneksi 250 Mbps (20 device) MyRepublic jauh lebih baik dibanding ISP Firstmedia.</p></div>
+ <div class="card"><h2>Ketersediaan jaringan Q3 · Workshop</h2><div id="ispWS"></div>
+  <p class="note">ISP workshop dinilai memadai (100 Mbps); gangguan biasa terjadi saat hujan deras / gangguan massal. 28–30 Sep: fiber putus, normal kembali 30 Sep 16:00.</p></div>
+</div>
+
+<div class="grid"><div class="card"><h2>Tren ketersediaan ISP · Jul–Sep (% normal)</h2><div id="chT"></div>
+ <div class="lg"><span><i style="background:var(--acc)"></i>Head Office (Firstmedia → MyRepublic)</span><span><i style="background:var(--ok)"></i>Workshop (IndiHome)</span></div>
+ <p class="note">HO melonjak dari 47,1% ke 96,4% setelah pindah ke MyRepublic, lalu 93,3% pada September. WS naik ke 93,5% pada Agustus, lalu turun ke 86,7% karena fiber putus 28–30 Sep.</p></div></div>
+<div class="grid c2">
+ <div class="card"><h2>Performa bandwidth HO · rata-rata 1–30 Sep</h2>
+  <div id="bw"></div>
+  <p class="note">Downtime HO: 12 Sep 14:42–14:55. Tindakan: restart Router 1 &amp; 2, monitoring bandwidth, konfirmasi koneksi stabil.</p></div>
+ <div class="card"><h2>Target September</h2><div id="tgt"></div></div>
+</div>
+
+<div class="grid c2">
+ <div class="card"><h2>Backup data per bulan (%)</h2><div id="chB"></div></div>
+ <div class="card"><h2>Service laptop/PC per bulan (%)</h2><div id="chS"></div></div>
+</div>
+
+<div class="grid c2">
+ <div class="card"><h2>Aktivitas Jan–Sep 2026</h2><div id="actbar"></div><div class="scroll"><table id="act"></table></div></div>
+ <div class="card"><h2>Rencana Okt–Des <span class="chip ac" id="planCnt" style="float:right"></span></h2><div class="bar" id="pbar" style="margin:2px 0 8px"><i style="width:0;background:var(--ok)"></i></div><div id="plan"></div></div>
+</div>
+<footer>Sumber: IT_Report_jan-sep_26.pptx · Terakhir dirender <span id="upd"></span></footer>
+</div>
+<script>
+const M=["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep"];
+const D={
+ acts:[["Monitoring ISP jaringan HO &amp; WS","Done","ok"],["Seleksi Admin Support &amp; Warehouse","Done","ok"],["SOP IT penanganan service","Done · perlu dibahas","wn"],["Konfigurasi networking, remote access &amp; easy accounting di PC Server (static IP MyRepublic)","Done","ok"],["SOP flowchart: Sales, Procurement, Warehouse, Engineer","Done","ok"],["Backup data rutin staff HO &amp; WS, CCTV; backup project 2026","Berlanjut","wn"],["Pembaruan lisensi Microsoft Office","Done","ok"],["Perbaikan 3 laptop Dell Latitude 5480 (1 selesai motherboard)","2 total rusak","bd"],["IT Budget","Done (Sep–Okt)","ok"]],
+ ho:[["Jul · Firstmedia",47.1,52.9,0],["Agu · MyRepublic",96.4,3.6,0],["Sep · MyRepublic",93.3,6.7,0]],
+ ws:[["Jul · IndiHome",84,16,0],["Agu · IndiHome",93.5,5.9,.6],["Sep · IndiHome",86.7,0,13.3]],
+ bw:[["Download (Mbps)",185.5,298.5,45.5],["Upload (Mbps)",78.5,122.5,8.5],["Ping (ms)",10,13,8],["Device aktif",10.3,25,.5]],
+ tgt:[["Lanjutkan backup data rutin staff",87],["Service &amp; pergantian part laptop/PC",65],["Seleksi Admin Support &amp; Warehouse",100],["SOP IT penanganan service",100]],
+ backup:[15,25,11,5,27,2,1,.5,.5],
+ trend:[15,25,11,30,27,30,60,75,87],
+ service:[10,2,35,7,.5,3,1,.5,6],
+ plan:[["Pengadaan unit baru laptop/PC","Pemetaan kebutuhan sesuai budget HO &amp; WS"],["Pra-Raker / Raker","Data untuk evaluasi 2026 &amp; proyeksi 2027"],["Sosialisasi &amp; pelatihan dasar AI","Koordinasi dengan HRD"],["Moderasi part laptop","Servis berkala; regenerasi 2 unit baru"],["Prosedur pengkodean asset unit","Koordinasi dengan Accounting"],["Defender &amp; pengadaan antivirus","Aktifkan antivirus resmi di PC"],["Budget IT bulanan (Nov–Des)","Rencana pengadaan IT"],["Review performa ISP &amp; vendor","Cek konektivitas di jam sibuk"],["Penanganan SLA &amp; response time","Servis pihak 3 &amp; 2 dalam 2–3 hari"],["Absensi pengganti fingerprint","Go live absensi online faceRec (WS)"],["Migrasi soal IQ 1–39","Dari software Test IQ ke Google Form"]]
+};
+const $=id=>document.getElementById(id);
+const pad=n=>String(n).padStart(2,"0");
+const DN=[];
+const tip=document.createElement("div");tip.style.cssText="position:fixed;z-index:9;pointer-events:none;background:var(--card);color:var(--tx);border:1px solid var(--ln);border-radius:10px;padding:7px 10px;font-size:12px;box-shadow:0 8px 24px rgba(0,0,0,.2);opacity:0;transition:opacity .15s";document.body.appendChild(tip);
+function replay(r){$(r.el).querySelectorAll(".fg").forEach(c=>{c.style.strokeDasharray="0 999";setTimeout(()=>c.style.strokeDasharray=c.dataset.d,80)})}
+function donut(el,o){
+ const C=2*Math.PI*44,a=o.n*C/100,b=o.d*C/100;
+ const dots=Array.from({length:30},(_,i)=>{const t=i/30*2*Math.PI-Math.PI/2;return `<circle class="dd${o.dn.includes(i+1)?" dn":""}" cx="${60+31*Math.cos(t)}" cy="${60+31*Math.sin(t)}" r="1.9"/>`}).join("");
+ $(el).innerHTML=`<svg viewBox="0 0 120 120" role="img" aria-label="${o.name}"><defs><linearGradient id="${el}g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--acc)"/><stop offset="1" style="stop-color:var(--acc2)"/></linearGradient></defs>
+ <circle class="ring" cx="60" cy="60" r="44"/><circle class="ring" style="animation-delay:1.4s" cx="60" cy="60" r="44"/>
+ <circle class="spin rev" cx="60" cy="60" r="55" fill="none" stroke="var(--acc)" stroke-opacity=".4" stroke-width="1.2" stroke-dasharray="2 7"/>
+ <circle cx="60" cy="60" r="44" fill="none" stroke="var(--ln)" stroke-width="12"/>
+ <g class="rot"><circle class="fg arc" data-s="0" cx="60" cy="60" r="44" fill="none" stroke="url(#${el}g)" stroke-width="12" data-d="${a} ${C}" style="stroke-dasharray:0 ${C};filter:drop-shadow(0 0 4px var(--acc))" transform="rotate(-90 60 60)"/>
+ <circle class="fg arc dwn" data-s="1" cx="60" cy="60" r="44" fill="none" stroke="var(--bad)" stroke-width="12" data-d="${b} ${C}" style="stroke-dasharray:0 ${C};stroke-dashoffset:${-a}" transform="rotate(-90 60 60)"/></g>
+ ${dots}
+ <g class="spin"><circle cx="60" cy="60" r="44" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="3" stroke-linecap="round" stroke-dasharray="7 ${C}" transform="rotate(-90 60 60)" pointer-events="none"/></g>
+ <g class="spin slow"><circle cx="60" cy="5" r="2.6" fill="var(--acc)" style="filter:drop-shadow(0 0 4px var(--acc))"/></g>
+ <text class="c1" x="60" y="62" text-anchor="middle" font-size="17" font-weight="700" fill="var(--tx)"></text><text class="c2" x="60" y="74" text-anchor="middle" font-size="7.5" fill="var(--mut)"></text></svg><ul>${o.items.map(i=>`<li>${i}</li>`).join("")}</ul>`;
+ const S=o.states,r={i:0,p:0,el,S,k:0},svg=$(el).querySelector("svg"),c1=svg.querySelector(".c1"),c2=svg.querySelector(".c2");
+ r.dots=[...svg.querySelectorAll(".dd")];
+ const put=i=>{c1.textContent=S[i][0];c2.textContent=S[i][1];c1.setAttribute("fill",S[i][2]?"var(--bad)":"var(--tx)")};
+ r.set=i=>{r.i=i;c1.style.opacity=0;c2.style.opacity=0;setTimeout(()=>{put(i);c1.style.opacity=1;c2.style.opacity=1},180)};
+ put(0);DN.push(r);
+ svg.querySelectorAll(".arc").forEach(x=>{x.onmouseenter=()=>{r.p=1;r.set(x.dataset.s=="1"?1:0)};x.onmouseleave=()=>{r.p=0}});
+ const rot=svg.querySelector(".rot");let ang=0,vel=.15,drag=0,last=0;
+ const pa=e=>{const q=svg.getBoundingClientRect();return Math.atan2(e.clientY-q.top-q.height/2,e.clientX-q.left-q.width/2)*180/Math.PI};
+ svg.onpointerdown=e=>{drag=1;r.p=1;last=pa(e);vel=0;svg.setPointerCapture(e.pointerId)};
+ svg.onpointermove=e=>{if(!drag)return;const p=pa(e);let d=p-last;if(d>180)d-=360;if(d<-180)d+=360;vel=Math.max(-20,Math.min(20,d));ang+=d;last=p};
+ svg.onpointerup=svg.onpointercancel=()=>{drag=0;r.p=0};
+ (function f(){if(!drag){vel+=(.15-vel)*.03;ang+=vel}rot.setAttribute("transform",`rotate(${ang} 60 60)`);requestAnimationFrame(f)})();
+}
+function stack(el,rows){
+ const f=v=>String(v).replace(".",",");
+ $(el).innerHTML=rows.map(r=>`<div class="row"><span>${r[0]}</span><div class="bar"><i data-w="${r[1]}" style="width:0;background:linear-gradient(90deg,var(--acc),var(--acc2),var(--acc))" title="Normal ${f(r[1])}%"></i><i class="z" data-w="${r[2]}" style="width:0;background:var(--warn)" title="Fluktuatif ${f(r[2])}%"></i><i class="z" data-w="${r[3]}" style="width:0;background:var(--bad)" title="Los ${f(r[3])}%"></i></div><em data-cu>${f(r[1])}%</em></div>`).join("")+`<div class="lg"><span><i style="background:var(--acc)"></i>Normal</span><span><i style="background:var(--warn)"></i>Fluktuatif / gangguan</span><span><i style="background:var(--bad)"></i>Los</span></div>`;
+}
+function smooth(p){let d=`M${p[0][0]},${p[0][1]}`;for(let i=0;i<p.length-1;i++){const a=p[i-1]||p[i],b=p[i],c=p[i+1],e=p[i+2]||c;d+=`C${b[0]+(c[0]-a[0])/6},${b[1]+(c[1]-a[1])/6} ${c[0]-(e[0]-b[0])/6},${c[1]-(e[1]-b[1])/6} ${c[0]},${c[1]}`}return d}
+const CH=[];
+function combo(el,o){
+ const W=o.W||520,H=o.H||230,pl=30,pr=8,pb=22,pt=26,L=o.labels||M,n=L.length,gw=(W-pl-pr)/n,bs=o.bars||[],ls=o.lines||[],all=[...bs,...ls];
+ const mx=o.mx,B=H-pb,Y=v=>pt+(B-pt)*(1-v/mx),X=i=>pl+i*gw+gw/2,k=bs.length||1,bw=Math.min(24,(gw-10)/k),f=v=>String(v).replace(".",",");
+ let g="<defs>"+bs.map((s,j)=>`<linearGradient id="${el}b${j}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:${s.c}"/><stop offset="1" style="stop-color:${s.c};stop-opacity:.35"/></linearGradient>`).join("")+ls.map((s,j)=>`<linearGradient id="${el}a${j}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:${s.c};stop-opacity:${ls.length>1?.16:.4}"/><stop offset="1" style="stop-color:${s.c};stop-opacity:0"/></linearGradient>`).join("")+"</defs>";
+ for(let v=0;v<=mx;v+=o.st){const y=Y(v);g+=`<line x1="${pl}" x2="${W-pr}" y1="${y}" y2="${y}" stroke="var(--ln)" stroke-dasharray="3 4"/><text x="${pl-6}" y="${y+3}" text-anchor="end" font-size="9" fill="var(--mut)">${v}</text>`}
+ g+=`<rect class="ph" x="${pl}" y="${pt-10}" width="${gw}" height="${B-pt+10}" rx="8" fill="var(--acc)" opacity=".12"/>`;
+ if(o.avg)g+=`<line x1="${pl}" x2="${W-pr}" y1="${Y(o.avg)}" y2="${Y(o.avg)}" stroke="var(--mut)" stroke-dasharray="4 4" opacity=".8"/>`;
+ const pi=o.peak?bs[0].v.indexOf(Math.max(...bs[0].v)):-1;
+ bs.forEach((s,j)=>s.v.forEach((v,i)=>{const h=(B-pt)*v/mx,x=X(i)-bw*k/2+j*bw,cx=x+(bw-2)/2;
+  g+=`<rect class="b" data-i="${i}" style="animation-delay:${i*70+j*40}ms" x="${x}" y="${B-h}" width="${bw-2}" height="${Math.max(h,1.5)}" rx="4" fill="url(#${el}b${j})"/>`;
+  if(o.bl)g+=`<text x="${cx}" y="${B-h-4}" text-anchor="middle" font-size="8.5" font-weight="${i==pi?700:400}" fill="${i==pi?"var(--tx)":"var(--mut)"}">${f(v)}</text>`;
+  if(i==pi)g+=`<text x="${cx}" y="${B-h-15}" text-anchor="middle" font-size="8.5" font-weight="700" fill="var(--warn)">puncak</text>`}));
+ ls.forEach((s,j)=>{const p=s.v.map((v,i)=>[X(i),Y(v)]),d=smooth(p);
+  if(s.area!==0)g+=`<path class="area" d="${d} L${p[n-1][0]},${B} L${p[0][0]},${B}Z" fill="url(#${el}a${j})"/>`;
+  g+=`<path class="draw" pathLength="1" d="${d}" fill="none" stroke="${s.c}" stroke-width="2.6" stroke-linecap="round" style="filter:drop-shadow(0 2px 4px ${s.c})"/><path class="flow" d="${d}"/>`;
+  p.forEach((q,i)=>{g+=`<circle class="pt" data-i="${i}" style="animation-delay:${1.2+i*.12}s" cx="${q[0]}" cy="${q[1]}" r="3.6" fill="var(--card)" stroke="${s.c}" stroke-width="2"/>`;if(o.lab)g+=`<text x="${q[0]}" y="${q[1]+(j?18:-9)}" text-anchor="middle" font-size="9.5" font-weight="700" fill="${s.c}">${f(s.v[i])}</text>`});
+  const e=p[o.pk=="max"?s.v.indexOf(Math.max(...s.v)):n-1];g+=`<circle class="ping" cx="${e[0]}" cy="${e[1]}" r="4" fill="${s.c}"/>`});
+ L.forEach((m,i)=>g+=`<text x="${X(i)}" y="${H-6}" text-anchor="middle" font-size="10" fill="var(--mut)">${m}</text>`);
+ L.forEach((m,i)=>g+=`<rect class="hit" data-i="${i}" x="${pl+i*gw}" y="0" width="${gw}" height="${H}" fill="transparent"/>`);
+ const leg=all.map((s,j)=>`<span><i style="background:${s.c};${j<bs.length?"":"height:3px;width:14px;vertical-align:middle"}"></i>${s.n}</span>`).join("")+(o.avg?`<span><i style="width:14px;height:0;background:none;border-top:2px dashed var(--mut);border-radius:0;vertical-align:middle"></i>Rata-rata ${f(o.avg)}%</span>`:"");
+ $(el).innerHTML=`<div class="hd" id="${el}h"></div><svg viewBox="0 0 ${W} ${H}" width="100%" role="img">${g}</svg>${o.noleg?"":`<div class="lg">${leg}</div>`}<p class="note">Arahkan kursor / sentuh grafik untuk melihat tiap bulan</p>`;
+ const svg=$(el).querySelector("svg"),hp=svg.querySelector(".ph"),c={n,i:0,h:0};
+ const hdr=i=>`<b>${L[i]}</b>`+all.map(s=>{const d=i?s.v[i]-s.v[i-1]:null;return `<span class="hi"><i style="background:${s.c}"></i>${s.n} <b>${f(s.v[i])}%</b>${d==null?"":` <em>${d>=0?"▲":"▼"} ${f(+Math.abs(d).toFixed(1))}</em>`}</span>`}).join("");
+ c.upd=i=>{c.i=i;hp.style.transform=`translateX(${i*gw}px)`;$(el+"h").innerHTML=hdr(i);svg.querySelectorAll(".b,.pt").forEach(e=>e.classList.toggle("a",e.dataset.i==i))};
+ c.upd(0);CH.push(c);
+ svg.querySelectorAll(".hit").forEach(h=>{const i=+h.dataset.i;h.onpointerenter=h.onpointermove=h.onpointerdown=()=>{c.h=1;if(c.i!=i)c.upd(i)};h.onpointerleave=()=>{c.h=0}});
+}
+function render(){
+ const done=D.acts.filter(a=>a[2]=="ok").length;
+ $("tk").innerHTML=["<b>ISP HO</b> uptime 93,3% — downtime 12 Sep 14:42–14:55","<b>ISP WS</b> uptime 86,7% — fiber putus 28–30 Sep, pulih 30 Sep 16:00","<b>Aktivitas</b> "+done+" dari "+D.acts.length+" Done penuh","<b>Backup staff</b> Sep 0,5% · distribusi 87%","<b>Service laptop/PC</b> Sep 6%","<b>Laptop rusak</b> 2 unit Dell Latitude 5480","<b>Target Sep</b> seleksi Admin Support &amp; SOP IT 100%"].join("<u>●</u>");
+ const sp=(v,c,i)=>{const W=200,H=62,lo=Math.min(...v),r=Math.max(...v)-lo,Yv=x=>8+(H-26)*(1-(x-lo+r*.1)/(r*1.3)),p=v.map((x,j)=>[10+j*(W-24)/(v.length-1),Yv(x)]),d=smooth(p),e=p[p.length-1],lb=["Jul","Agu","Sep"];
+  return `<svg class="spk" viewBox="0 0 ${W} ${H}" width="100%"><defs><linearGradient id="sk${i}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:${c};stop-opacity:.4"/><stop offset="1" style="stop-color:${c};stop-opacity:0"/></linearGradient></defs><path class="area" d="${d} L${e[0]},${H-16} L${p[0][0]},${H-16}Z" fill="url(#sk${i})"/><path class="draw" pathLength="1" d="${d}" fill="none" stroke="${c}" stroke-width="2.4" stroke-linecap="round"/><circle class="ping" cx="${e[0]}" cy="${e[1]}" r="5" fill="${c}"/><circle class="pop" cx="${e[0]}" cy="${e[1]}" r="4" fill="${c}"/>`+p.map((q,j)=>`<text x="${q[0]}" y="${H-3}" text-anchor="${j?j<2?"middle":"end":"start"}" font-size="9" fill="var(--mut)">${lb[j]}</text>`).join("")+`</svg>`};
+ const pil=(a,t)=>`<div class="pills">${a.map((c,i)=>`<i title="${t[i]}" style="background:var(--${c});animation-delay:${.5+i*.09}s"></i>`).join("")}</div>`,cl={ok:"ok",wn:"warn",bd:"bad"};
+ $("kpis").innerHTML=[
+  ["Aktivitas Jan–Sep",`${done}/${D.acts.length}`,"Done penuh · 3 butuh tindak lanjut","var(--ok)",pil(D.acts.map(a=>cl[a[2]]),D.acts.map(a=>a[0]))],
+  ["Uptime ISP HO (Sep)","93,3%","1 hari downtime (12 Sep)","var(--acc)",sp([47.1,96.4,93.3],"var(--acc)",0)],
+  ["Uptime ISP WS (Sep)","86,7%","3 hari downtime (28–30 Sep)","var(--warn)",sp([84,93.5,86.7],"var(--warn)",1)],
+  ["Laptop total rusak","2","dari 3 Dell Latitude 5480","var(--bad)",pil(["bad","bad","ok"],["Rusak","Rusak","Selesai (motherboard)"])],
+  ["Hari tersisa 2026",`<span id="left">–</span>`,`<span id="q4">Kuartal 4</span>`,"var(--acc)",`<div class="bar" style="margin-top:12px"><i id="q4b" data-w="0" style="width:0;background:var(--acc)"></i></div>`]
+ ].map(k=>`<div class="card kpi"><span>${k[0]}</span><b data-cu style="color:${k[3]}">${k[1]}</b><span>${k[2]}</span>${k[4]}</div>`).join("");
+ donut("dHO",{dn:[12],name:"Ketersediaan ISP HO",n:93.3,d:3.3,items:["<b>Normal:</b> 28 hari (93,3%)","<b>Downtime:</b> 1 hari – 12 Sep, 14:42–14:55","Rata-rata download 185,5 Mbps","Ping rata-rata 10 ms"],states:[["93,3%","Normal"],["3,3%","Downtime",1],["28 hari","Berfungsi"],["1 hari","Downtime",1]]});
+ donut("dWS",{dn:[28,29,30],name:"Ketersediaan ISP WS",n:86.7,d:13.3,items:["<b>Normal:</b> 27 hari (86,7%)","<b>Downtime:</b> 3 hari – 28–30 Sep","Penyebab: jaringan fiber putus","Pulih 30 Sep 16:00 setelah penyambungan kabel"],states:[["86,7%","Normal"],["13,3%","Downtime",1],["27 hari","Berfungsi"],["3 hari","Downtime",1]]});
+ stack("ispHO",D.ho);stack("ispWS",D.ws);
+ $("bw").innerHTML=D.bw.map((r,i)=>{const mx=r[2],f=v=>String(v).replace(".",",");return `<div class="rg"><span>${r[0]}</span><div class="rt"><i class="rf" style="left:${r[3]/mx*100}%;width:${(mx-r[3])/mx*100}%;animation-delay:${i*.12}s"></i><b class="mk" style="left:${r[1]/mx*100}%;animation-delay:${i*.12}s"></b></div><em>${f(r[1])}<small>${f(r[3])}–${f(r[2])}</small></em></div>`}).join("")+`<div class="lg"><span><i style="background:var(--acc);opacity:.5"></i>Rentang min–maks</span><span><i style="background:var(--acc2);border-radius:50%"></i>Rata-rata</span></div>`;
+ $("tgt").innerHTML=D.tgt.map(t=>`<div class="row" style="grid-template-columns:1fr 52px"><span>${t[0]}</span><em>${t[1]}%</em><div class="bar" style="grid-column:1/3"><i data-w="${t[1]}" style="width:0;background:${t[1]==100?"var(--ok)":"var(--acc)"}"></i></div></div>`).join("");
+ const sv=D.service,ma=sv.map((_,i)=>+(sv.slice(Math.max(0,i-2),i+1).reduce((a,b)=>a+b)/Math.min(3,i+1)).toFixed(1));
+ combo("chB",{mx:100,st:25,lab:1,bars:[{n:"Progres backup staff",c:"var(--acc)",v:D.backup}],lines:[{n:"Distribusi backup (grafik Q3)",c:"var(--warn)",v:D.trend}]});
+ combo("chT",{W:900,H:240,mx:100,st:25,noleg:1,labels:["Jul","Agu","Sep"],lab:1,lines:[{n:"Head Office",c:"var(--acc)",v:[47.1,96.4,93.3]},{n:"Workshop",c:"var(--ok)",v:[84,93.5,86.7]}]});
+ combo("chS",{mx:40,st:10,bl:1,peak:1,pk:"max",avg:+(sv.reduce((a,b)=>a+b)/sv.length).toFixed(1),bars:[{n:"Service laptop/PC",c:"var(--ok)",v:sv}],lines:[{n:"Rata-rata bergerak 3 bln",c:"var(--warn)",v:ma,area:0}]});
+ const ac={ok:0,wn:0,bd:0};D.acts.forEach(a=>ac[a[2]]++);
+ $("actbar").innerHTML=`<div class="bar" style="height:12px;gap:2px">${[["ok","var(--ok)"],["wn","var(--warn)"],["bd","var(--bad)"]].map(x=>`<i data-w="${ac[x[0]]/D.acts.length*100}" style="width:0;background:${x[1]}"></i>`).join("")}</div><div class="lg"><span><i style="background:var(--ok)"></i>Done penuh ${ac.ok}</span><span><i style="background:var(--warn)"></i>Berlanjut / dibahas ${ac.wn}</span><span><i style="background:var(--bad)"></i>Kendala ${ac.bd}</span></div>`;
+ $("act").innerHTML="<tr><th>No</th><th>Aktivitas</th><th>Status</th></tr>"+D.acts.map((a,i)=>`<tr style="animation-delay:${i*.06}s"><td>${i+1}</td><td>${a[0]}</td><td><span class="chip ${a[2]}">${a[1]}</span></td></tr>`).join("");
+ drawPlan();
+}
+function load(){try{return JSON.parse(localStorage.getItem("itdash")||"[]")}catch(e){return[]}}
+function save(a){try{localStorage.setItem("itdash",JSON.stringify(a))}catch(e){}}
+function drawPlan(){
+ const s=load();
+ $("plan").innerHTML=D.plan.map((p,i)=>`<label class="chk ${s.includes(i)?"d":""}"><input type="checkbox" data-i="${i}" ${s.includes(i)?"checked":""}><span>${i+1}. ${p[0]}<small>${p[1]}</small></span></label>`).join("");
+ $("planCnt").textContent=`${s.length}/${D.plan.length} selesai`;setTimeout(()=>{$("pbar").firstElementChild.style.width=s.length/D.plan.length*100+"%"},60);
+ $("plan").querySelectorAll("input").forEach(c=>c.onchange=()=>{let a=load().filter(x=>x!=c.dataset.i);if(c.checked)a.push(+c.dataset.i);save(a);drawPlan()});
+}
+function tick(){
+ const n=new Date(),z={timeZone:"Asia/Jakarta"};
+ $("clk").textContent=n.toLocaleTimeString("id-ID",{...z,hour12:false}).replace(/\./g,":");
+ $("dt").textContent=n.toLocaleDateString("id-ID",{...z,weekday:"long",day:"numeric",month:"long",year:"numeric"})+" · WIB";
+ const l=$("left");if(l){const end=new Date(2026,11,31,23,59,59),d=Math.max(0,Math.ceil((end-n)/864e5));l.textContent=d;
+  const q=new Date(2026,9,1),pr=Math.min(100,Math.max(0,(n-q)/(end-q)*100));$("q4").textContent=`Kuartal 4 berjalan ${pr.toFixed(0)}%`;$("q4b").dataset.w=pr.toFixed(1)}
+ $("upd").textContent=n.toLocaleTimeString("id-ID",z);
+}
+function grow(){
+ document.querySelectorAll("[data-w]").forEach(e=>e.style.width=e.dataset.w+"%");
+ document.querySelectorAll(".fg").forEach(c=>c.style.strokeDasharray=c.dataset.d);
+}
+function runCU(){
+ const rm=matchMedia("(prefers-reduced-motion:reduce)").matches;
+ document.querySelectorAll("[data-cu]").forEach(el=>{
+  const m=el.textContent.match(/^(\d+(?:,\d+)?)(.*)$/);if(!m||rm)return;
+  const to=parseFloat(m[1].replace(",",".")),dec=(m[1].split(",")[1]||"").length,t0=performance.now();
+  (function f(t){const k=Math.min(1,(t-t0)/1400),e=1-Math.pow(1-k,3);
+   el.textContent=(to*e).toFixed(dec).replace(".",",")+m[2];if(k<1)requestAnimationFrame(f)})(t0);
+ });
+}
+function theme(set){
+ let t={m:"auto",a:"blue"};
+ try{Object.assign(t,JSON.parse(localStorage.getItem("itdash-theme")||"{}"))}catch(e){}
+ if(set){Object.assign(t,set);try{localStorage.setItem("itdash-theme",JSON.stringify(t))}catch(e){}}
+ const h=document.documentElement;
+ t.m=="auto"?h.removeAttribute("data-theme"):h.setAttribute("data-theme",t.m);
+ t.a=="blue"?h.removeAttribute("data-accent"):h.setAttribute("data-accent",t.a);
+ document.querySelectorAll("#modes button").forEach(b=>b.classList.toggle("on",b.dataset.m==t.m));
+ document.querySelectorAll("#sw button").forEach(b=>b.classList.toggle("on",b.dataset.a==t.a));
+}
+document.querySelectorAll("#modes button").forEach(b=>b.onclick=()=>theme({m:b.dataset.m}));
+document.querySelectorAll("#sw button").forEach(b=>b.onclick=()=>theme({a:b.dataset.a}));
+theme();
+window.addEventListener("storage",e=>{if(e.key=="itdash-theme")theme()});
+let ph=0;
+function sweep(){CH.forEach(c=>{if(c.h)return;c.upd((c.i+1)%c.n)})}
+setInterval(()=>DN.forEach(r=>{if(r.p)return;const i=(r.i+1)%r.S.length;r.set(i);if(i==0)replay(r)}),3200);
+function wave(){const q=document.querySelectorAll("#ispHO .bar i,#ispWS .bar i,#tgt .bar i,#actbar .bar i");q.forEach(e=>{e.style.transition="none";e.style.width="0"});
+ requestAnimationFrame(()=>requestAnimationFrame(()=>q.forEach((e,i)=>{e.style.transition=`width 1.3s cubic-bezier(.34,1.56,.64,1) ${Math.floor(i/3)*.18}s`;e.style.width=e.dataset.w+"%"})))}
+setInterval(wave,9000);
+setInterval(()=>DN.forEach(r=>{const d=r.dots;if(!d)return;if(r.k>=d.length){d.forEach(x=>x.classList.remove("on"));r.k=0}else d[r.k++].classList.add("on")}),110);
+render();tick();setInterval(tick,1000);
+setTimeout(()=>{grow();runCU()},80);
+setInterval(sweep,1800);
+let lastRun=0;
+document.addEventListener("visibilitychange",()=>{if(!document.hidden&&Date.now()-lastRun>6e4){lastRun=Date.now();document.querySelectorAll("[data-w]").forEach(e=>e.style.width="0");document.querySelectorAll(".fg").forEach(c=>c.style.strokeDasharray="0 999");setTimeout(()=>{grow()},80)}});
+window.addEventListener("storage",e=>{if(e.key=="itdash")drawPlan()});
+</script></body></html>
